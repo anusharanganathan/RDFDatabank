@@ -210,12 +210,11 @@ class TestSubmission(SparqlQueryTestCase.SparqlQueryTestCase):
         return
 
     def testFileUploadBulk(self):
-        for i in range(0, 1500):       
+        for i in range(0, 50000):
             """Upload file to dataset - POST file to /silo_name/datasets/dataset_name"""
             # Create a new dataset, check response
             start = datetime.now()
             dataset_id= uuid4().hex
-            #dataset_id='TestSubmission%d'%i
             f = open('test_times.log', 'a')
             f.write('%s: Creating and uploading file to dataset %s \n'%(start.isoformat(), dataset_id))
             f.close()

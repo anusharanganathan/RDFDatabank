@@ -33,7 +33,6 @@ from datetime import datetime, timedelta
 from rdflib import URIRef
 import simplejson
 from collections import defaultdict
-from uuid import uuid4
 
 from recordsilo import Granary
 from solr import SolrConnection
@@ -53,20 +52,12 @@ class NoSuchSilo(Exception):
 def gather_document(silo_name, item):
     graph = item.get_graph()
     document = defaultdict(list)
-    if 'uuid' in item.metadata and item.metadata['uuid']:
-        document['uuid'].append(item.metadata['uuid'])
-    else:
-        document['uuid'].append(item.item_id)
+    document['uuid'].append(item.metadata['uuid'])
     document['id'].append(item.item_id)
     document['silo'].append(silo_name)
     for (_,p,o) in graph.triples((URIRef(item.uri), None, None)):
         if str(p) in solr_fields_mapping:
             field = solr_fields_mapping[str(p)]
-            if field == "aggregatedResource":
-                if '/datasets/' in o:
-                    fn = unicode(o).split('/datasets/')
-                    if len(fn) == 2 and fn[1]:
-                        document['filename'].append(unicode(fn[1]).encode("utf-8"))
             if field == "embargoedUntilDate":
                 ans = u"%sZ"%unicode(o).split('.')[0]
                 document[field].append(unicode(ans).encode("utf-8"))
@@ -82,7 +73,6 @@ if __name__ == "__main__":
     redis_section = "redis"
     worker_section = "worker_solr"
     worker_number = sys.argv[1]
-    hours_before_commit = 1
     if len(sys.argv) == 3:
         if "redis_%s" % sys.argv[2] in c.sections():
             redis_section = "redis_%s" % sys.argv[2]
@@ -101,15 +91,15 @@ if __name__ == "__main__":
 
     solr = SolrConnection(c.get(worker_section, "solrurl"))
 
-    idletime = 0.1
-    commit_time = datetime.now() + timedelta(hours=hours_before_commit)
+    idletime = 2
+    commit_time = datetime.now() + timedelta(hours=1)
     toCommit = False
     while(True):
         sleep(idletime)
 
         if datetime.now() > commit_time and toCommit:
             solr.commit()
-            commit_time = datetime.now() + timedelta(hours=hours_before_commit)
+            commit_time = datetime.now() + timedelta(hours=1)
             toCommit = False
 
         line = rq.pop()
@@ -118,21 +108,20 @@ if __name__ == "__main__":
             if toCommit:
                 solr.commit()
                 toCommit = False
-                commit_time = datetime.now() + timedelta(hours=hours_before_commit)
+                commit_time = datetime.now() + timedelta(hours=1)
             continue
 
         logger.debug("Got message %s" %str(line))
 
         toCommit = True
         msg = simplejson.loads(line)
-        # get silo name
+        # solr switch
         try:
             silo_name = msg['silo']
         except:
             logger.error("Msg badly formed %s\n"%str(msg))
             rq.task_complete()
             continue
-        # Re-initialize granary
         if silo_name not in g.silos and not msg['type'] == "d":
             g = Granary(granary_root)
             g.state.revert()
@@ -145,7 +134,7 @@ if __name__ == "__main__":
         if msg['type'] == "c" or msg['type'] == "u" or msg['type'] == "embargo":
             s = g.get_rdf_silo(silo_name)
             # Creation, update or embargo change
-            itemid = msg.get('id', None)
+            itemid = msg.get('id')
             logger.info("Got creation message on id:%s in silo:%s" % (itemid, silo_name))
             if itemid and s.exists(itemid):
                 item = s.get_item(itemid)
@@ -160,20 +149,10 @@ if __name__ == "__main__":
                        pass
                     rq.task_failed()
                     continue
-            else:
-                silo_metadata = g.describe_silo(silo_name)
-                solr_doc = {'id':silo_name, 'silo':silo_name, 'type':'Silo', 'uuid':silo_name}
-                solr_doc['title'] = ''
-                if 'title' in silo_metadata:
-                    solr_doc['title'] = silo_metadata['title']
-                solr_doc['description'] = ''
-                if 'description' in silo_metadata:
-                    solr_doc['description'] = silo_metadata['description']
-                solr.add(_commit=False, **solr_doc)
             rq.task_complete()
         elif msg['type'] == "d":
             # Deletion
-            itemid = msg.get('id', None)
+            itemid = msg.get('id')
             if itemid:
                 logger.info("Got deletion message on id:%s in silo:%s" % (itemid, silo_name))
                 query='silo:"%s" AND id:"%s"'%(silo_name, itemid)
