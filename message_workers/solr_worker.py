@@ -59,7 +59,8 @@ def gather_document(silo_name, item):
         document['id'].append(item.item_id)
     document['id'].append(item.item_id)
     document['silo'].append(silo_name)
-    for (_,p,o) in graph.triples((URIRef(item.uri), None, None)):
+    #for (_,p,o) in graph.triples((URIRef(item.uri), None, None)):
+	for (_,p,o) in graph.triples((None, None, None)):
         if str(p) in solr_fields_mapping:
             field = solr_fields_mapping[str(p)]
             if field == "aggregatedResource":
