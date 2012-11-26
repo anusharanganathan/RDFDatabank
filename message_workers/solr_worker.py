@@ -28,6 +28,7 @@ from LogConfigParser import Config
 from solrFields import solr_fields_mapping
 
 import sys
+import codecs
 from time import sleep
 from datetime import datetime, timedelta
 from rdflib import URIRef
@@ -35,7 +36,10 @@ import simplejson
 from collections import defaultdict
 from uuid import uuid4
 
-from recordsilo import Granary
+#from recordsilo import Granary
+from databankClientLib.databank import Databank
+from rdflib import ConjunctiveGraph
+from StringIO import StringIO
 from solr import SolrConnection
 
 import logging
@@ -50,17 +54,15 @@ logger.addHandler(ch)
 class NoSuchSilo(Exception):
   pass
 
-def gather_document(silo_name, item):
-    graph = item.get_graph()
+def gather_document(silo_name, item_id, graph, item, debug=False):
     document = defaultdict(list)
-    if 'uuid' in item.metadata and item.metadata['uuid']:
-        document['uuid'].append(item.metadata['uuid'])
+    if 'metadata' in item and item['metadata'] and 'uuid' in item['metadata'] and item['metadata']['uuid']:
+        document['uuid'].append(item['metadata']['uuid'])
     else:
-        document['id'].append(item.item_id)
-    document['id'].append(item.item_id)
+        document['uuid'].append(item_id)
+    document['id'].append(item_id)
     document['silo'].append(silo_name)
-    #for (_,p,o) in graph.triples((URIRef(item.uri), None, None)):
-	for (_,p,o) in graph.triples((None, None, None)):
+    for (_,p,o) in graph.triples((None, None, None)):
         if str(p) in solr_fields_mapping:
             field = solr_fields_mapping[str(p)]
             if field == "aggregatedResource":
@@ -76,6 +78,13 @@ def gather_document(silo_name, item):
         else:
             document['text'].append(unicode(o).encode("utf-8"))
     document = dict(document)
+    if 'publisher' in document:
+        #TODO: SOLR not accepting multiple values for publisher though multivalued fields. Fix this
+        del document['publisher']
+    if debug:
+        f = codecs.open('/var/log/databank/solr_doc.log', 'w', 'utf-8')
+        f.write(simplejson.dumps(document))
+        f.close()
     return document
 
 if __name__ == "__main__":
@@ -94,17 +103,21 @@ if __name__ == "__main__":
                   port=c.get(redis_section, "port"),
                   errorqueue=c.get(worker_section, "errorq")
                  )
-    DB_ROOT = c.get(worker_section, "dbroot")
-    rdfdb_config = Config("%s/production.ini" % DB_ROOT)
-    granary_root = rdfdb_config.get("app:main", "granary.store", 0, {'here':DB_ROOT})
-  
-    g = Granary(granary_root)
+
+    host = "databank.ora.ox.ac.uk"
+    username = "databankClient"
+    password = "6mgMBpAg"
+    db = Databank( host, username, password )
 
     solr = SolrConnection(c.get(worker_section, "solrurl"))
 
     idletime = 0.1
     commit_time = datetime.now() + timedelta(hours=hours_before_commit)
     toCommit = False
+    response = db.getSilos()
+    silos = []
+    if db.good( response ) :
+        silos = response.results
     while(True):
         sleep(idletime)
 
@@ -133,37 +146,60 @@ if __name__ == "__main__":
             logger.error("Msg badly formed %s\n"%str(msg))
             rq.task_complete()
             continue
+        
         # Re-initialize granary
-        if silo_name not in g.silos and not msg['type'] == "d":
-            g = Granary(granary_root)
-            g.state.revert()
-            g._register_silos()
-            if silo_name not in g.silos:
+        if silo_name not in silos and not msg['type'] == "d":
+            #g = Granary(granary_root)
+            #g.state.revert()
+            silos = []
+            response = db.getSilos()
+            if db.good( response ) :
+                silos = response.results 
+            if silo_name not in silos:
                 logger.error("Silo %s does not exist\n"%silo_name)
                 rq.task_complete()
                 #raise NoSuchSilo
                 continue
         if msg['type'] == "c" or msg['type'] == "u" or msg['type'] == "embargo":
-            s = g.get_rdf_silo(silo_name)
             # Creation, update or embargo change
             itemid = msg.get('id', None)
             logger.info("Got creation message on id:%s in silo:%s" % (itemid, silo_name))
-            if itemid and s.exists(itemid):
-                item = s.get_item(itemid)
-                solr_doc = gather_document(silo_name, item)
-                try:
-                    solr.add(_commit=False, **solr_doc)
-                except Exception, e :
-                    logger.error("Error adding document to solr id:%s in silo:%s\n" % (itemid, silo_name))
+            if itemid:
+                #Get state infor for dataset
+                state_info = {}              
+                response = db.getDatasetState( silo_name, itemid )
+                if db.good( response ) :
+                    state_info = response.results 
+                #Get rdf graph from manifest for dataset
+                graph = None
+                response = db.getFile(silo_name, itemid, 'manifest.rdf')
+                if db.good ( response ) :
+                    manifest = response.results
+                    graph = ConjunctiveGraph()
+                    graph.parse(StringIO(manifest), "xml")
+                if state_info and graph:
+                    solr_doc = gather_document(silo_name, itemid, graph, state_info, debug=True)
                     try:
-                       logger.error("%s\n\n" %str(e))
-                    except:
-                       pass
+                        solr.add(_commit=False, **solr_doc)
+                    except Exception, e :
+                        logger.error("Error adding document to solr id:%s in silo:%s\n" % (itemid, silo_name))
+                        try:
+                            logger.error("%s\n\n" %str(e))
+                        except:
+                           pass
+                        rq.task_failed()
+                        continue
+                else:
+                    logger.error("Error gathering state and manifest info for id:%s in silo:%s\n" % (itemid, silo_name))
                     rq.task_failed()
                     continue
             else:
-                silo_metadata = g.describe_silo(silo_name)
-                solr_doc = {'id':silo_name, 'silo':silo_name, 'type':'Silo', 'uuid':uuid4().hex}
+                solr_doc = {'id':silo_name, 'silo':silo_name, 'type':'Silo', 'uuid':silo_name}
+                #Get state infor for silo
+                silo_metadata = {}              
+                response = db.getSiloState( silo_name )
+                if db.good( response ) :
+                    silo_metadata = response.results 
                 solr_doc['title'] = ''
                 if 'title' in silo_metadata:
                     solr_doc['title'] = silo_metadata['title']
