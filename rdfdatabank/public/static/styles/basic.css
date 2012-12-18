@@ -1567,3 +1567,32 @@ top: 0px;
         font-size: 1.2em;
         margin-bottom: 5px;
 }
+
+.accordion {
+	background: #002147; /* for non-css3 browsers */
+		/* filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#002147', endColorstr='#DDDDDD');*/ /* for IE */
+		/* background: -webkit-gradient(linear, left top, left bottom, from(#002147), to(#DDDDDD)); */ /* for webkit browsers */
+		/* background: -moz-linear-gradient(top,  #002147,  #DDDDDD); */ /* for firefox 3.6+ */ 
+	border-top: 1px solid #002147;
+	box-shadow: #cccccc 0.3em 0.3em 0.2em; /* Opera 10.5, IE 9.0 */
+	 	-webkit-box-shadow: #cccccc 0.3em 0.3em 0.2em; /* Chrome Safari */
+		-moz-box-shadow: #cccccc 0.3em 0.3em 0.2em; /* Firefox F3.5+ */
+	clear: both;
+	color:#fff;
+	margin: 10px 0px;
+	padding: 5px;
+	text-decoration: none;
+}
+
+.accordion dt {
+	border:2px solid #6c6; 
+	padding:8px; 
+	font-weight:bold; margin-top:5px; 
+	cursor:pointer; 
+}
+
+.accordion dd {
+	overflow:hidden; 
+	background:#fff
+}
+
