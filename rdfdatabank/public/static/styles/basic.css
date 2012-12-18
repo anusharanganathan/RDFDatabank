@@ -1585,9 +1585,9 @@ top: 0px;
 }
 
 .accordion dt {
-	border:2px solid #6c6; 
+	border:2px solid #ccc; 
 	padding:8px; 
-	font-weight:bold; margin-top:5px; 
+	font-weight:bold;
 	cursor:pointer; 
 }
 
