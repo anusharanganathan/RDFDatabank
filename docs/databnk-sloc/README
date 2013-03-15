@@ -1,0 +1,20 @@
+Analysing lines of code in RDFDatabank and Recordsilo
+
+Cloned Databank and Recordsilo from Dataflow on 22 Jan 2013 (Version 1)
+
+1. Using CLOC
+http://cloc.sourceforge.net/
+sudo apt-get install cloc
+Results saved in txt, xml and csv
+
+cloc --by-file-by-lang --exclude-dir=docs,dist,.git RDFDatabank RecordSilo --report-file=cloc_databank_result.txt
+cloc --by-file-by-lang --exclude-dir=docs,dist,.git RDFDatabank RecordSilo --report-file=cloc_databank_result.xml --xml --xsl=1
+cloc --by-file-by-lang --exclude-dir=docs,dist,.git RDFDatabank RecordSilo --report-file=cloc_databank_result.csv --csv
+
+2. Analysing using gitsats
+http://gitstats.sourceforge.net/
+sudo apt-get install gitstats
+
+gitstats RDFDatabank/ gitStatsOutput
+gitstats RecordSilo/ gitStatsRecordSiloOutput
+

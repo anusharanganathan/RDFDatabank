@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="1"?>
+<results>
+<header>http://cloc.sourceforge.net v 1.53  T=0.5 s (360.0 files/s, 87896.0 lines/s)</header>
+<files>
+<file name="RDFDatabank/rdfdatabank/tests/TestSubmission_submitter.py" blank="316" comment="876" code="7155"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/TestSubmission.py" blank="86" comment="559" code="3873"  language="Python" />
+<file name="RDFDatabank/sss/sss-1.0.py" blank="574" comment="1013" code="1890"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/public/static/styles/basic.css" blank="367" comment="79" code="1126"  language="CSS" />
+<file name="RDFDatabank/rdfdatabank/controllers/datasets.py" blank="80" comment="108" code="901"  language="Python" />
+<file name="RDFDatabank/sss/repository.py" blank="230" comment="355" code="706"  language="Python" />
+<file name="RDFDatabank/sss/core.py" blank="162" comment="275" code="680"  language="Python" />
+<file name="RDFDatabank/sss/pylons_sword_controller.py" blank="181" comment="298" code="562"  language="Python" />
+<file name="RecordSilo/recordsilo/records.py" blank="74" comment="16" code="539"  language="Python" />
+<file name="RDFDatabank/sss/webpy.py" blank="174" comment="321" code="520"  language="Python" />
+<file name="RDFDatabank/sss/negotiator.py" blank="161" comment="309" code="488"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/datasets_api.html" blank="4" comment="6" code="483"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/admin_api.html" blank="4" comment="6" code="478"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/controllers/users.py" blank="39" comment="46" code="453"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/public/static/style.css" blank="85" comment="10" code="429"  language="CSS" />
+<file name="RDFDatabank/rdfdatabank/controllers/search.py" blank="81" comment="43" code="398"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/search_response_options.html" blank="13" comment="0" code="396"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/utils.py" blank="36" comment="65" code="386"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/items.py" blank="60" comment="69" code="379"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/lib/sword_server.py" blank="145" comment="294" code="354"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/lib/auth_entry.py" blank="46" comment="67" code="324"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/admin.py" blank="26" comment="59" code="315"  language="Python" />
+<file name="RDFDatabank/sss/sss_client_tools.py" blank="91" comment="42" code="303"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/testlib/SparqlQueryTestCase.py" blank="47" comment="91" code="267"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/doi.py" blank="27" comment="55" code="249"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/TestSubmission_load.py" blank="30" comment="79" code="240"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/rdf_manifest.html" blank="1" comment="20" code="225"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/conneg.py" blank="35" comment="44" code="210"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/lib/search_term.py" blank="9" comment="20" code="201"  language="Python" />
+<file name="RDFDatabank/sss/spec.py" blank="36" comment="19" code="197"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/search_response_display.html" blank="11" comment="0" code="184"  language="HTML" />
+<file name="RDFDatabank/debian/postinst" blank="17" comment="27" code="178"  language="Bourne Shell" />
+<file name="RDFDatabank/ez_setup.py" blank="66" comment="41" code="169"  language="Python" />
+<file name="RecordSilo/ez_setup.py" blank="26" comment="41" code="169"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/lib/file_unpack.py" blank="43" comment="129" code="166"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/datasetview.html" blank="13" comment="41" code="158"  language="HTML" />
+<file name="RecordSilo/recordsilo/silo.py" blank="41" comment="5" code="149"  language="Python" />
+<file name="RDFDatabank/sss/ingesters_disseminators.py" blank="50" comment="49" code="148"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/list_of_datasets.html" blank="6" comment="0" code="145"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/TestAdmin.py" blank="27" comment="66" code="141"  language="Python" />
+<file name="RDFDatabank/message_workers/solr_worker.py" blank="20" comment="27" code="139"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/items_api.html" blank="2" comment="24" code="134"  language="HTML" />
+<file name="RecordSilo/recordsilo/manifesthelper.py" blank="33" comment="2" code="131"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/lib/HTTP_request.py" blank="20" comment="45" code="123"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/base.html" blank="56" comment="23" code="119"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/states_api.html" blank="3" comment="5" code="118"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/doi_helper.py" blank="10" comment="20" code="113"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/silos.py" blank="15" comment="27" code="110"  language="Python" />
+<file name="RDFDatabank/sss/config.py" blank="54" comment="154" code="106"  language="Python" />
+<file name="RDFDatabank/message_workers/solrFields.py" blank="5" comment="21" code="101"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/states.py" blank="26" comment="43" code="98"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/search.html" blank="16" comment="45" code="98"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/search_advanced.html" blank="14" comment="45" code="94"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/app_globals.py" blank="30" comment="30" code="82"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/public/static/styles/reset.css" blank="47" comment="24" code="82"  language="CSS" />
+<file name="RDFDatabank/rdfdatabank/public/static/styles/squirrelMonkey.css" blank="58" comment="4" code="82"  language="CSS" />
+<file name="RDFDatabank/rdfdatabank/lib/htpasswd.py" blank="26" comment="50" code="79"  language="Python" />
+<file name="RDFDatabank/sss/webui.py" blank="23" comment="7" code="79"  language="Python" />
+<file name="RDFDatabank/message_workers/redisqueue.py" blank="19" comment="38" code="79"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/itemview.html" blank="9" comment="31" code="78"  language="HTML" />
+<file name="RecordSilo/recordsilo/urihelper.py" blank="13" comment="13" code="76"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/lib/broadcast.py" blank="16" comment="20" code="76"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/silo_user.html" blank="12" comment="9" code="75"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/doi_schema.py" blank="9" comment="34" code="74"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/alter_silo.html" blank="0" comment="0" code="72"  language="HTML" />
+<file name="RecordSilo/recordsilo/persiststate.py" blank="13" comment="4" code="70"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/error.py" blank="15" comment="38" code="69"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/model/auth.py" blank="48" comment="60" code="68"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/lib/short_pid.py" blank="11" comment="9" code="66"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/admin_user.html" blank="9" comment="9" code="64"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/users.html" blank="7" comment="9" code="63"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/data_sync.py" blank="13" comment="29" code="59"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/silo_metadata.html" blank="0" comment="0" code="57"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/silos_api.html" blank="1" comment="3" code="57"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode10.xml" blank="1" comment="0" code="57"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/templates/silo_users.html" blank="7" comment="9" code="55"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tools/indexingItemsinDatabank.py" blank="17" comment="41" code="54"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/account.py" blank="8" comment="37" code="54"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/admin_silos.html" blank="6" comment="9" code="53"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/admin_siloview.html" blank="7" comment="9" code="52"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/login.html" blank="3" comment="0" code="50"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/testlib/TestUtils.py" blank="9" comment="67" code="49"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/ww1-2862-manifest.xml" blank="0" comment="0" code="49"  language="XML" />
+<file name="RDFDatabank/setup_db.py" blank="10" comment="3" code="48"  language="Python" />
+<file name="RDFDatabank/message_workers/broker.py" blank="11" comment="27" code="48"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/config/routing.py" blank="21" comment="32" code="46"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/embargo_form.html" blank="1" comment="0" code="45"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/ww1-860b-manifest.xml" blank="0" comment="0" code="45"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/templates/search_form.html" blank="0" comment="0" code="44"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/part_list.html" blank="2" comment="0" code="43"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode04.xml" blank="0" comment="0" code="39"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/templates/home.html" blank="7" comment="0" code="39"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/doiview.html" blank="5" comment="0" code="38"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/public/static/styles/marmoset.css" blank="41" comment="15" code="32"  language="CSS" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode08.xml" blank="0" comment="0" code="32"  language="XML" />
+<file name="RecordSilo/recordsilo/rdfmanifest.py" blank="12" comment="2" code="31"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode05.xml" blank="0" comment="0" code="31"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/templates/part_list_display.html" blank="1" comment="0" code="31"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/update_user_role.html" blank="0" comment="0" code="30"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/list_of_silos.html" blank="0" comment="0" code="30"  language="HTML" />
+<file name="RDFDatabank/add_user.py" blank="4" comment="3" code="30"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/websetup.py" blank="27" comment="133" code="30"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode06.xml" blank="0" comment="0" code="29"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/tools/broadcastDatasets.py" blank="9" comment="20" code="29"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/config/middleware.py" blank="22" comment="59" code="29"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode07.xml" blank="0" comment="0" code="29"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/config/environment.py" blank="14" comment="29" code="29"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/update_user.html" blank="5" comment="0" code="29"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/RDFDatabankConfig-Jenkins.py" blank="15" comment="40" code="27"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/RDFDatabankConfig.py" blank="14" comment="37" code="27"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/lib/reqclassifier.py" blank="9" comment="31" code="26"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tools/populateTable.py" blank="6" comment="0" code="26"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/create_new_silo.html" blank="0" comment="0" code="25"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/siloview.html" blank="0" comment="0" code="24"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tools/renamingSymLinks.py" blank="15" comment="41" code="24"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/add_users_to_silo.html" blank="0" comment="0" code="23"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/list_of_zipfiles.html" blank="0" comment="0" code="23"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode02.xml" blank="0" comment="0" code="22"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode01.xml" blank="0" comment="0" code="22"  language="XML" />
+<file name="RDFDatabank/setup.py" blank="2" comment="12" code="22"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/files_unpack.html" blank="0" comment="0" code="21"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode09.xml" blank="0" comment="0" code="21"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/templates/admin_users.html" blank="0" comment="0" code="20"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/helpers.py" blank="8" comment="27" code="19"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/config/namespaces.py" blank="4" comment="0" code="19"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/pylons_init.py" blank="9" comment="8" code="19"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/zipfileview.html" blank="0" comment="0" code="19"  language="HTML" />
+<file name="RDFDatabank/debian/config" blank="11" comment="14" code="18"  language="Bourne Shell" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode03.xml" blank="0" comment="0" code="18"  language="XML" />
+<file name="RDFDatabank/rdfdatabank/templates/silo_admin.html" blank="0" comment="0" code="17"  language="HTML" />
+<file name="RDFDatabank/debian/postrm" blank="4" comment="1" code="17"  language="Bourne Again Shell" />
+<file name="RDFDatabank/rdfdatabank/templates/raw_search.html" blank="0" comment="0" code="16"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/error.html" blank="0" comment="0" code="15"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/auth.py" blank="13" comment="54" code="14"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/api.html" blank="1" comment="0" code="14"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/controllers/api.py" blank="7" comment="20" code="13"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/logout.html" blank="1" comment="0" code="13"  language="HTML" />
+<file name="RecordSilo/setup.py" blank="1" comment="3" code="12"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/rdf_manifest_form.html" blank="0" comment="0" code="12"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/about.html" blank="3" comment="0" code="12"  language="HTML" />
+<file name="RDFDatabank/sss/sss_logging.py" blank="12" comment="18" code="12"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/config/users-default.py" blank="4" comment="20" code="11"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/footer.html" blank="0" comment="0" code="11"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/item_file_upload.html" blank="0" comment="0" code="10"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/register_new_user.html" blank="0" comment="0" code="10"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/header.html" blank="1" comment="0" code="10"  language="HTML" />
+<file name="RDFDatabank/message_workers/LogConfigParser.py" blank="6" comment="21" code="10"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/file_upload.html" blank="0" comment="0" code="10"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/zipfilesubitemview.html" blank="0" comment="0" code="9"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/base.py" blank="7" comment="27" code="9"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/ziptestdir.sh" blank="2" comment="3" code="9"  language="Bourne Shell" />
+<file name="RDFDatabank/rdfdatabank/public/static/styles/chimpanzee.css" blank="29" comment="14" code="9"  language="CSS" />
+<file name="RDFDatabank/rdfdatabank/model/__init__.py" blank="4" comment="9" code="8"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/model/meta.py" blank="6" comment="5" code="8"  language="Python" />
+<file name="RDFDatabank/sss/__init__.py" blank="2" comment="0" code="7"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/public/static/styles/silverback.css" blank="25" comment="14" code="7"  language="CSS" />
+<file name="RDFDatabank/rdfdatabank/templates/create_new_item.html" blank="0" comment="0" code="7"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/lib/ident_md.py" blank="6" comment="20" code="7"  language="Python" />
+<file name="RecordSilo/debian/rules" blank="6" comment="15" code="7"  language="make" />
+<file name="RDFDatabank/debian/preinst" blank="2" comment="2" code="6"  language="Bourne Again Shell" />
+<file name="RDFDatabank/rdfdatabank/templates/keywords.html" blank="1" comment="0" code="6"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/templates/searching.html" blank="1" comment="0" code="6"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/public/static/styles/ie.css" blank="21" comment="14" code="6"  language="CSS" />
+<file name="RDFDatabank/rdfdatabank/templates/readme_section.html" blank="0" comment="0" code="6"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/controllers/about.py" blank="6" comment="20" code="5"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/keywords.py" blank="6" comment="20" code="5"  language="Python" />
+<file name="RDFDatabank/debian/prerm" blank="4" comment="1" code="5"  language="Bourne Shell" />
+<file name="RDFDatabank/rdfdatabank/controllers/searching.py" blank="6" comment="20" code="5"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/controllers/home.py" blank="6" comment="20" code="5"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/public/static/styles/print.css" blank="21" comment="14" code="4"  language="CSS" />
+<file name="RecordSilo/recordsilo/__init__.py" blank="0" comment="0" code="4"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/create_doi.html" blank="0" comment="0" code="4"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/config/users.py" blank="4" comment="20" code="3"  language="Python" />
+<file name="RDFDatabank/debian/rules" blank="2" comment="8" code="3"  language="make" />
+<file name="RDFDatabank/sss/info.py" blank="0" comment="0" code="3"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/public/static/jquery.js" blank="0" comment="17" code="2"  language="Javascript" />
+<file name="RDFDatabank/rdfdatabank/controllers/sword.py" blank="0" comment="0" code="2"  language="Python" />
+<file name="RDFDatabank/rdfdatabank/templates/atom_results.html" blank="0" comment="0" code="2"  language="HTML" />
+<file name="RDFDatabank/rdfdatabank/tests/testdata/testdir2/directory1/file1.c" blank="0" comment="0" code="1"  language="C" />
+<file name="RDFDatabank/rdfdatabank/public/static/js/html5.js" blank="0" comment="4" code="0"  language="Javascript" />
+<total blank="4736" comment="7654" code="31558" />
+</files>
+</results>
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="1"?>
+<results>
+<header>http://cloc.sourceforge.net v 1.53  T=0.5 s (360.0 files/s, 87896.0 lines/s)</header>
+<languages>
+<language name="Python" files_count="90" blank="3760" comment="7071" code="25159" />
+<language name="HTML" files_count="58" blank="233" comment="303" code="3982" />
+<language name="CSS" files_count="9" blank="694" comment="188" code="1777" />
+<language name="XML" files_count="12" blank="1" comment="0" code="394" />
+<language name="Bourne Shell" files_count="4" blank="34" comment="45" code="210" />
+<language name="Bourne Again Shell" files_count="2" blank="6" comment="3" code="23" />
+<language name="make" files_count="2" blank="8" comment="23" code="10" />
+<language name="Javascript" files_count="2" blank="0" comment="21" code="2" />
+<language name="C" files_count="1" blank="0" comment="0" code="1" />
+<total sum_files="180" blank="4736" comment="7654" code="31558" />
+</languages>
+</results>
