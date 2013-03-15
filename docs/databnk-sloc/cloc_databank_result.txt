@@ -1,0 +1,203 @@
+http://cloc.sourceforge.net v 1.53  T=3.0 s (60.0 files/s, 14649.3 lines/s)
+---------------------------------------------------------------------------------------------------------------------
+File                                                                              blank        comment           code
+---------------------------------------------------------------------------------------------------------------------
+RDFDatabank/rdfdatabank/tests/TestSubmission_submitter.py                           316            876           7155
+RDFDatabank/rdfdatabank/tests/TestSubmission.py                                      86            559           3873
+RDFDatabank/sss/sss-1.0.py                                                          574           1013           1890
+RDFDatabank/rdfdatabank/public/static/styles/basic.css                              367             79           1126
+RDFDatabank/rdfdatabank/controllers/datasets.py                                      80            108            901
+RDFDatabank/sss/repository.py                                                       230            355            706
+RDFDatabank/sss/core.py                                                             162            275            680
+RDFDatabank/sss/pylons_sword_controller.py                                          181            298            562
+RecordSilo/recordsilo/records.py                                                     74             16            539
+RDFDatabank/sss/webpy.py                                                            174            321            520
+RDFDatabank/sss/negotiator.py                                                       161            309            488
+RDFDatabank/rdfdatabank/templates/datasets_api.html                                   4              6            483
+RDFDatabank/rdfdatabank/templates/admin_api.html                                      4              6            478
+RDFDatabank/rdfdatabank/controllers/users.py                                         39             46            453
+RDFDatabank/rdfdatabank/public/static/style.css                                      85             10            429
+RDFDatabank/rdfdatabank/controllers/search.py                                        81             43            398
+RDFDatabank/rdfdatabank/templates/search_response_options.html                       13              0            396
+RDFDatabank/rdfdatabank/lib/utils.py                                                 36             65            386
+RDFDatabank/rdfdatabank/controllers/items.py                                         60             69            379
+RDFDatabank/rdfdatabank/lib/sword_server.py                                         145            294            354
+RDFDatabank/rdfdatabank/lib/auth_entry.py                                            46             67            324
+RDFDatabank/rdfdatabank/controllers/admin.py                                         26             59            315
+RDFDatabank/sss/sss_client_tools.py                                                  91             42            303
+RDFDatabank/rdfdatabank/tests/testlib/SparqlQueryTestCase.py                         47             91            267
+RDFDatabank/rdfdatabank/controllers/doi.py                                           27             55            249
+RDFDatabank/rdfdatabank/tests/TestSubmission_load.py                                 30             79            240
+RDFDatabank/rdfdatabank/templates/rdf_manifest.html                                   1             20            225
+RDFDatabank/rdfdatabank/lib/conneg.py                                                35             44            210
+RDFDatabank/rdfdatabank/lib/search_term.py                                            9             20            201
+RDFDatabank/sss/spec.py                                                              36             19            197
+RDFDatabank/rdfdatabank/templates/search_response_display.html                       11              0            184
+RDFDatabank/debian/postinst                                                          17             27            178
+RDFDatabank/ez_setup.py                                                              66             41            169
+RecordSilo/ez_setup.py                                                               26             41            169
+RDFDatabank/rdfdatabank/lib/file_unpack.py                                           43            129            166
+RDFDatabank/rdfdatabank/templates/datasetview.html                                   13             41            158
+RecordSilo/recordsilo/silo.py                                                        41              5            149
+RDFDatabank/sss/ingesters_disseminators.py                                           50             49            148
+RDFDatabank/rdfdatabank/templates/list_of_datasets.html                               6              0            145
+RDFDatabank/rdfdatabank/tests/TestAdmin.py                                           27             66            141
+RDFDatabank/message_workers/solr_worker.py                                           20             27            139
+RDFDatabank/rdfdatabank/templates/items_api.html                                      2             24            134
+RecordSilo/recordsilo/manifesthelper.py                                              33              2            131
+RDFDatabank/rdfdatabank/lib/HTTP_request.py                                          20             45            123
+RDFDatabank/rdfdatabank/templates/base.html                                          56             23            119
+RDFDatabank/rdfdatabank/templates/states_api.html                                     3              5            118
+RDFDatabank/rdfdatabank/lib/doi_helper.py                                            10             20            113
+RDFDatabank/rdfdatabank/controllers/silos.py                                         15             27            110
+RDFDatabank/sss/config.py                                                            54            154            106
+RDFDatabank/message_workers/solrFields.py                                             5             21            101
+RDFDatabank/rdfdatabank/controllers/states.py                                        26             43             98
+RDFDatabank/rdfdatabank/templates/search.html                                        16             45             98
+RDFDatabank/rdfdatabank/templates/search_advanced.html                               14             45             94
+RDFDatabank/rdfdatabank/lib/app_globals.py                                           30             30             82
+RDFDatabank/rdfdatabank/public/static/styles/reset.css                               47             24             82
+RDFDatabank/rdfdatabank/public/static/styles/squirrelMonkey.css                      58              4             82
+RDFDatabank/rdfdatabank/lib/htpasswd.py                                              26             50             79
+RDFDatabank/sss/webui.py                                                             23              7             79
+RDFDatabank/message_workers/redisqueue.py                                            19             38             79
+RDFDatabank/rdfdatabank/templates/itemview.html                                       9             31             78
+RecordSilo/recordsilo/urihelper.py                                                   13             13             76
+RDFDatabank/rdfdatabank/lib/broadcast.py                                             16             20             76
+RDFDatabank/rdfdatabank/templates/silo_user.html                                     12              9             75
+RDFDatabank/rdfdatabank/lib/doi_schema.py                                             9             34             74
+RDFDatabank/rdfdatabank/templates/alter_silo.html                                     0              0             72
+RecordSilo/recordsilo/persiststate.py                                                13              4             70
+RDFDatabank/rdfdatabank/controllers/error.py                                         15             38             69
+RDFDatabank/rdfdatabank/model/auth.py                                                48             60             68
+RDFDatabank/rdfdatabank/lib/short_pid.py                                             11              9             66
+RDFDatabank/rdfdatabank/templates/admin_user.html                                     9              9             64
+RDFDatabank/rdfdatabank/templates/users.html                                          7              9             63
+RDFDatabank/rdfdatabank/lib/data_sync.py                                             13             29             59
+RDFDatabank/rdfdatabank/templates/silo_metadata.html                                  0              0             57
+RDFDatabank/rdfdatabank/templates/silos_api.html                                      1              3             57
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode10.xml                      1              0             57
+RDFDatabank/rdfdatabank/templates/silo_users.html                                     7              9             55
+RDFDatabank/rdfdatabank/tools/indexingItemsinDatabank.py                             17             41             54
+RDFDatabank/rdfdatabank/controllers/account.py                                        8             37             54
+RDFDatabank/rdfdatabank/templates/admin_silos.html                                    6              9             53
+RDFDatabank/rdfdatabank/templates/admin_siloview.html                                 7              9             52
+RDFDatabank/rdfdatabank/templates/login.html                                          3              0             50
+RDFDatabank/rdfdatabank/tests/testlib/TestUtils.py                                    9             67             49
+RDFDatabank/rdfdatabank/tests/testdata/ww1-2862-manifest.xml                          0              0             49
+RDFDatabank/setup_db.py                                                              10              3             48
+RDFDatabank/message_workers/broker.py                                                11             27             48
+RDFDatabank/rdfdatabank/config/routing.py                                            21             32             46
+RDFDatabank/rdfdatabank/templates/embargo_form.html                                   1              0             45
+RDFDatabank/rdfdatabank/tests/testdata/ww1-860b-manifest.xml                          0              0             45
+RDFDatabank/rdfdatabank/templates/search_form.html                                    0              0             44
+RDFDatabank/rdfdatabank/templates/part_list.html                                      2              0             43
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode04.xml                      0              0             39
+RDFDatabank/rdfdatabank/templates/home.html                                           7              0             39
+RDFDatabank/rdfdatabank/templates/doiview.html                                        5              0             38
+RDFDatabank/rdfdatabank/public/static/styles/marmoset.css                            41             15             32
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode08.xml                      0              0             32
+RecordSilo/recordsilo/rdfmanifest.py                                                 12              2             31
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode05.xml                      0              0             31
+RDFDatabank/rdfdatabank/templates/part_list_display.html                              1              0             31
+RDFDatabank/rdfdatabank/templates/update_user_role.html                               0              0             30
+RDFDatabank/rdfdatabank/templates/list_of_silos.html                                  0              0             30
+RDFDatabank/add_user.py                                                               4              3             30
+RDFDatabank/rdfdatabank/websetup.py                                                  27            133             30
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode06.xml                      0              0             29
+RDFDatabank/rdfdatabank/tools/broadcastDatasets.py                                    9             20             29
+RDFDatabank/rdfdatabank/config/middleware.py                                         22             59             29
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode07.xml                      0              0             29
+RDFDatabank/rdfdatabank/config/environment.py                                        14             29             29
+RDFDatabank/rdfdatabank/templates/update_user.html                                    5              0             29
+RDFDatabank/rdfdatabank/tests/RDFDatabankConfig-Jenkins.py                           15             40             27
+RDFDatabank/rdfdatabank/tests/RDFDatabankConfig.py                                   14             37             27
+RDFDatabank/rdfdatabank/lib/reqclassifier.py                                          9             31             26
+RDFDatabank/rdfdatabank/tools/populateTable.py                                        6              0             26
+RDFDatabank/rdfdatabank/templates/create_new_silo.html                                0              0             25
+RDFDatabank/rdfdatabank/templates/siloview.html                                       0              0             24
+RDFDatabank/rdfdatabank/tools/renamingSymLinks.py                                    15             41             24
+RDFDatabank/rdfdatabank/templates/add_users_to_silo.html                              0              0             23
+RDFDatabank/rdfdatabank/templates/list_of_zipfiles.html                               0              0             23
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode02.xml                      0              0             22
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode01.xml                      0              0             22
+RDFDatabank/setup.py                                                                  2             12             22
+RDFDatabank/rdfdatabank/templates/files_unpack.html                                   0              0             21
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode09.xml                      0              0             21
+RDFDatabank/rdfdatabank/templates/admin_users.html                                    0              0             20
+RDFDatabank/rdfdatabank/lib/helpers.py                                                8             27             19
+RDFDatabank/rdfdatabank/config/namespaces.py                                          4              0             19
+RDFDatabank/rdfdatabank/tests/pylons_init.py                                          9              8             19
+RDFDatabank/rdfdatabank/templates/zipfileview.html                                    0              0             19
+RDFDatabank/debian/config                                                            11             14             18
+RDFDatabank/rdfdatabank/tests/testdata/unicodedata/unicode03.xml                      0              0             18
+RDFDatabank/rdfdatabank/templates/silo_admin.html                                     0              0             17
+RDFDatabank/debian/postrm                                                             4              1             17
+RDFDatabank/rdfdatabank/templates/raw_search.html                                     0              0             16
+RDFDatabank/rdfdatabank/templates/error.html                                          0              0             15
+RDFDatabank/rdfdatabank/lib/auth.py                                                  13             54             14
+RDFDatabank/rdfdatabank/templates/api.html                                            1              0             14
+RDFDatabank/rdfdatabank/controllers/api.py                                            7             20             13
+RDFDatabank/rdfdatabank/templates/logout.html                                         1              0             13
+RecordSilo/setup.py                                                                   1              3             12
+RDFDatabank/rdfdatabank/templates/rdf_manifest_form.html                              0              0             12
+RDFDatabank/rdfdatabank/templates/about.html                                          3              0             12
+RDFDatabank/sss/sss_logging.py                                                       12             18             12
+RDFDatabank/rdfdatabank/config/users-default.py                                       4             20             11
+RDFDatabank/rdfdatabank/templates/footer.html                                         0              0             11
+RDFDatabank/rdfdatabank/templates/item_file_upload.html                               0              0             10
+RDFDatabank/rdfdatabank/templates/register_new_user.html                              0              0             10
+RDFDatabank/rdfdatabank/templates/header.html                                         1              0             10
+RDFDatabank/message_workers/LogConfigParser.py                                        6             21             10
+RDFDatabank/rdfdatabank/templates/file_upload.html                                    0              0             10
+RDFDatabank/rdfdatabank/templates/zipfilesubitemview.html                             0              0              9
+RDFDatabank/rdfdatabank/lib/base.py                                                   7             27              9
+RDFDatabank/rdfdatabank/tests/testdata/ziptestdir.sh                                  2              3              9
+RDFDatabank/rdfdatabank/public/static/styles/chimpanzee.css                          29             14              9
+RDFDatabank/rdfdatabank/model/__init__.py                                             4              9              8
+RDFDatabank/rdfdatabank/model/meta.py                                                 6              5              8
+RDFDatabank/sss/__init__.py                                                           2              0              7
+RDFDatabank/rdfdatabank/public/static/styles/silverback.css                          25             14              7
+RDFDatabank/rdfdatabank/templates/create_new_item.html                                0              0              7
+RDFDatabank/rdfdatabank/lib/ident_md.py                                               6             20              7
+RecordSilo/debian/rules                                                               6             15              7
+RDFDatabank/debian/preinst                                                            2              2              6
+RDFDatabank/rdfdatabank/templates/keywords.html                                       1              0              6
+RDFDatabank/rdfdatabank/templates/searching.html                                      1              0              6
+RDFDatabank/rdfdatabank/public/static/styles/ie.css                                  21             14              6
+RDFDatabank/rdfdatabank/templates/readme_section.html                                 0              0              6
+RDFDatabank/rdfdatabank/controllers/about.py                                          6             20              5
+RDFDatabank/rdfdatabank/controllers/keywords.py                                       6             20              5
+RDFDatabank/debian/prerm                                                              4              1              5
+RDFDatabank/rdfdatabank/controllers/searching.py                                      6             20              5
+RDFDatabank/rdfdatabank/controllers/home.py                                           6             20              5
+RDFDatabank/rdfdatabank/public/static/styles/print.css                               21             14              4
+RecordSilo/recordsilo/__init__.py                                                     0              0              4
+RDFDatabank/rdfdatabank/templates/create_doi.html                                     0              0              4
+RDFDatabank/rdfdatabank/config/users.py                                               4             20              3
+RDFDatabank/debian/rules                                                              2              8              3
+RDFDatabank/sss/info.py                                                               0              0              3
+RDFDatabank/rdfdatabank/public/static/jquery.js                                       0             17              2
+RDFDatabank/rdfdatabank/controllers/sword.py                                          0              0              2
+RDFDatabank/rdfdatabank/templates/atom_results.html                                   0              0              2
+RDFDatabank/rdfdatabank/tests/testdata/testdir2/directory1/file1.c                    0              0              1
+RDFDatabank/rdfdatabank/public/static/js/html5.js                                     0              4              0
+---------------------------------------------------------------------------------------------------------------------
+SUM:                                                                               4736           7654          31558
+---------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Language                      files          blank        comment           code
+--------------------------------------------------------------------------------
+Python                           90           3760           7071          25159
+HTML                             58            233            303           3982
+CSS                               9            694            188           1777
+XML                              12              1              0            394
+Bourne Shell                      4             34             45            210
+Bourne Again Shell                2              6              3             23
+make                              2              8             23             10
+Javascript                        2              0             21              2
+C                                 1              0              0              1
+--------------------------------------------------------------------------------
+SUM:                            180           4736           7654          31558
+--------------------------------------------------------------------------------
