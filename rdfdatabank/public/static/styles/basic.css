@@ -383,6 +383,9 @@ border-color: #6c6;
 .error {
 background-color: #a22;
 border-color: #c66;
+color: white;
+font-weight: bold;
+padding: 5px;
 }
 
 /* are you sure? (blue is cool on the subject..) */
