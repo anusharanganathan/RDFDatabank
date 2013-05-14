@@ -110,9 +110,6 @@ class SilosController(BaseController):
             silos = ag.authz(ident)
             if silo in silos:
                 c.editor = True
-
-        if silo in ['ww1archives', 'digitalbooks']:
-            abort(501, "The silo %s contains too many data packages to list"%silo)
         
         rdfsilo = ag.granary.get_rdf_silo(silo)
         state_info = ag.granary.describe_silo(silo)
