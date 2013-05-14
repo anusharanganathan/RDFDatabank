@@ -105,8 +105,8 @@ if __name__ == "__main__":
                  )
 
     host = "databank.ora.ox.ac.uk"
-    username = "databankClient"
-    password = "6mgMBpAg"
+    username = "username"
+    password = "password"
     db = Databank( host, username, password )
 
     solr = SolrConnection(c.get(worker_section, "solrurl"))
@@ -114,10 +114,15 @@ if __name__ == "__main__":
     idletime = 0.1
     commit_time = datetime.now() + timedelta(hours=hours_before_commit)
     toCommit = False
-    response = db.getSilos()
+    tries = 0
     silos = []
-    if db.good( response ) :
-        silos = response.results
+    while tries < 5:
+        response = db.getSilos()
+        if db.good( response ) :
+            silos = response.results
+            break
+        else:
+            tries += 1
     while(True):
         sleep(idletime)
 
@@ -151,10 +156,15 @@ if __name__ == "__main__":
         if silo_name not in silos and not msg['type'] == "d":
             #g = Granary(granary_root)
             #g.state.revert()
+            tries = 0
             silos = []
-            response = db.getSilos()
-            if db.good( response ) :
-                silos = response.results 
+            while tries < 5:
+                response = db.getSilos()
+                if db.good( response ) :
+                    silos = response.results 
+                    break
+                else:
+                    tries += 1
             if silo_name not in silos:
                 logger.error("Silo %s does not exist\n"%silo_name)
                 rq.task_complete()
@@ -166,17 +176,27 @@ if __name__ == "__main__":
             logger.info("Got creation message on id:%s in silo:%s" % (itemid, silo_name))
             if itemid:
                 #Get state infor for dataset
-                state_info = {}              
-                response = db.getDatasetState( silo_name, itemid )
-                if db.good( response ) :
-                    state_info = response.results 
+                state_info = {}
+                tries = 0
+                while tries < 5:
+                    response = db.getDatasetState( silo_name, itemid )
+                    if db.good( response ) :
+                        state_info = response.results 
+                        break
+                    else:
+                        tries += 1
                 #Get rdf graph from manifest for dataset
                 graph = None
-                response = db.getFile(silo_name, itemid, 'manifest.rdf')
-                if db.good ( response ) :
-                    manifest = response.results
-                    graph = ConjunctiveGraph()
-                    graph.parse(StringIO(manifest), "xml")
+                tries = 0
+                while tries < 5:
+                    response = db.getFile(silo_name, itemid, 'manifest.rdf')
+                    if db.good ( response ) :
+                        manifest = response.results
+                        graph = ConjunctiveGraph()
+                        graph.parse(StringIO(manifest), "xml")
+                        break
+                    else:
+                        tries += 1
                 if state_info and graph:
                     solr_doc = gather_document(silo_name, itemid, graph, state_info, debug=True)
                     try:
@@ -196,10 +216,15 @@ if __name__ == "__main__":
             else:
                 solr_doc = {'id':silo_name, 'silo':silo_name, 'type':'Silo', 'uuid':silo_name}
                 #Get state infor for silo
-                silo_metadata = {}              
-                response = db.getSiloState( silo_name )
-                if db.good( response ) :
-                    silo_metadata = response.results 
+                silo_metadata = {}
+                tries = 0
+                while tries < 5:
+                    response = db.getSiloState( silo_name )
+                    if db.good( response ) :
+                        silo_metadata = response.results 
+                        break
+                    else:
+                        tries += 1
                 solr_doc['title'] = ''
                 if 'title' in silo_metadata:
                     solr_doc['title'] = silo_metadata['title']
