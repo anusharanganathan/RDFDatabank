@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+% if c.parts and 'manifest.rdf' in c.parts:
+  <ul>
+  <% 
+  part = 'manifest.rdf'
+  if c.path:
+    subpath = "/%s" % c.path
+  else:
+    subpath = ""
+  if c.version:
+    urlext = "?version=%s" % c.version
+  else:
+    urlext = ""
+
+  if type(c.parts).__name__ == 'dict' and c.parts[part]:
+    sz = h.bytes_to_english(c.parts[part].st_size)
+    ext = "(%s)"%sz
+  else:
+    ext = ""
+  %>
+<li>
+<a href="/${c.base}${c.silo_name}/datasets/${c.id}${subpath}/${part}${urlext}">${part} ${ext}  
+<img src="/${c.base}static/styles/images/view_icon_32.png" title="view or download file"></a>
+</li>
+  </ul>
+% endif

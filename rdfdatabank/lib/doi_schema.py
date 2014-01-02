@@ -23,95 +23,219 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
+from rdfdatabank.config.namespaces import NAMESPACES
+
 class DataciteDoiSchema():
-    def __init__(self):
+    def __init__(self, doi):
         """
             DOI service provided by the British Library on behalf of Datacite.org
             API Doc: https://api.datacite.org/
             Metadata requirements: http://datacite.org/schema/DataCite-MetadataKernel_v2.0.pdf
         """
+        self.doi = doi
+
         #Mandatory metadata
         self.mandatory_metadata={
-            #'identifier':['bibo:doi'],
-            'creator':['dc:creator', 'dcterms:creator'],
-            'title':['dc:title', 'dcterms:title'],
-            'publisher':['dc:publisher', 'dcterms:publisher'],
-            'publicationYear':['oxds:embargoedUntil', 'dcterms:issued', 'dcterms:modified', 'dc:date']
+            #'doi':[NAMESPACES['bibo']['doi']],
+            'creator':[
+                NAMESPACES['dc']['creator'], 
+                NAMESPACES['dcterms']['creator']
+            ],
+            'title':[
+                NAMESPACES['dc']['title'], 
+                NAMESPACES['dcterms']['title']
+            ],
+            'publisher':[
+                NAMESPACES['dc']['publisher'], 
+                NAMESPACES['dcterms']['publisher']
+            ],
+            'publicationYear':[
+                NAMESPACES['oxds']['embargoedUntil'], 
+                NAMESPACES['dcterms']['issued'], 
+                NAMESPACES['dcterms']['modified'], 
+                NAMESPACES['dcterms']['date'],
+                NAMESPACES['dc']['date']
+            ]
         }
          
         self.optional_metadata={
-            'subject':['dc:subject', 'dcterms:subject'],
-            #'contributor':['dc:contributor', 'dcterms:contributor'],
-            'date:accepted':['dcterms:dateAccepted'],
-            'date:available':['oxds:embargoedUntil'],
-            'date:copyrighted':['dcterms:dateCopyrighted'],
-            'date:created':['dcterms:created'],
-            'date:issued':['dcterms:issued'],
-            'date:submitted':['dcterms:dateSubmitted'],
-            'date:updated':['dcterms:modified'],
-            #'date:valid':['dcterms:date'],
-            'language':['dc:language', 'dcterms:language'],
-            'resourceType':['dc:type','dcterms:type'],
-            'alternateIdentifier':['dc:identifier', 'dcterms:identifier'],
-            #'RelatedIdentifier':[],
-            'size':['dcterms:extent'],
-            'format':['dc:format', 'dcterms:format'],
-            'version':['oxds:currentVersion'],
-            'rights':['dc:rights', 'dcterms:rights'],
-            'description:other':['dc:description', 'dcterms:description'],
-            'description:abstract':['dcterms:abstract']
-        }
-        
-        self.schema_order={
-            'all':('identifier', 'creator', 'title', 'publisher', 'publicationYear', 'subject', 'contributor', 'date', 'language', 'resourceType', \
-                'alternateIdentifier', 'RelatedIdentifier', 'size', 'format', 'version', 'rights', 'description'),
-            'date':('accepted', 'available', 'copyrighted', 'created', 'issued', 'submitted', 'updated', 'valid'),
-            'description':('other', 'abstract')
-        }
-        
-        self.xml_schema={
-            'header':"""<?xml version="1.0" encoding="utf-8"?>
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="datacite-metadata-v2.0.xsd" lastMetadataUpdate="2006-05-04" metadataVersionNumber="1">""",
-            #'header':"""<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="datacite-metadata-v2.0.xsd" lastMetadataUpdate="2006-05-04" metadataVersionNumber="1">""",
-            #'header':"""<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://datacite.org/schema/datacite-metadata-v2.0.xsd">""",
-            'identifier':"""<identifier identifierType="DOI">%s</identifier>""",
-            'creator':"""<creator><creatorName>%s</creatorName></creator>""",
-            'title':"""<title>%s</title>""",
-            'publisher':"""<publisher>%s</publisher>""",
-            'publicationYear':"""<publicationYear>%s</publicationYear>""",
-            'subject':"""<subject>%s</subject>""",
-            'accepted':"""<date dateType="Accepted">%s</date>""",
-            'available':"""<date dateType="Available">%s</date>""",
-            'copyrighted':"""<date dateType="Copyrighted">%s</date>""",
-            'created':"""<date dateType="Created">%s</date>""",
-            'issued':"""<date dateType="Issued">%s</date>""",
-            'submitted':"""<date dateType="Submitted">%s</date>""",
-            'updated':"""<date dateType="Updated">%s</date>""",
-            'valid':"""<date dateType="Valid">%s</date>""",
-            'language':"""<language>%s</language>""",
-            'resourceType':"""<resourceType resourceTypeGeneral="Dataset">%s</resourceType>""",
-            'alternateIdentifier':"""<alternateIdentifier alternateIdentifierType="Publisher Identifier">%s</alternateIdentifier>""",
-            'size':"""<size>%s</size>""",
-            'format':"""<format>%s</format>""",
-            'version':"""<version>%s</version>""",
-            'rights':"""<rights>%s</rights>""",
-            'other':"""<description descriptionType="Other">%s</description>""",
-            'abstract':"""<description descriptionType="Abstract">%s</description>""",
-            'footer':"""</resource>"""
+            'subject':[
+                NAMESPACES['dc']['subject'], 
+                NAMESPACES['dcterms']['subject']
+            ],
+            'dateAccepted':[
+                NAMESPACES['dcterms']['dateAccepted']
+            ],
+            'embargoedUntil':[
+                NAMESPACES['oxds']['embargoedUntil']
+            ],
+            'dateCopyrighted':[
+                NAMESPACES['dcterms']['dateCopyrighted']
+            ],
+            'created':[
+                NAMESPACES['dcterms']['created']
+            ],
+            'issued':[
+                NAMESPACES['dcterms']['issued']
+            ],
+            'dateSubmitted':[
+                NAMESPACES['dcterms']['dateSubmitted']
+            ],
+            'modified':[
+                NAMESPACES['dcterms']['modified']
+            ],
+            'date':[
+                NAMESPACES['dcterms']['date'],
+                NAMESPACES['dc']['date']
+            ],
+            'language':[
+                NAMESPACES['dc']['language'],
+                NAMESPACES['dcterms']['language']
+            ],
+            'identifier':[
+                NAMESPACES['dc']['identifier'], 
+                NAMESPACES['dcterms']['identifier']
+            ],
+            'uri':[
+                NAMESPACES['dc']['identifier'], 
+                NAMESPACES['dcterms']['identifier'], 
+                NAMESPACES['bibo']['uri']
+            ],
+            'asin':[
+                NAMESPACES['bibo']['asin']
+            ],
+            'coden':[
+                NAMESPACES['bibo']['coden']
+            ],
+            'eanucc13':[
+                NAMESPACES['bibo']['eanucc13']
+            ],
+            'eissn':[
+                NAMESPACES['bibo']['eissn']
+            ],
+            'gtin14':[
+                NAMESPACES['bibo']['gtin14']
+            ],
+            'handle':[
+                NAMESPACES['bibo']['handle']
+            ],
+            'isbn':[
+                NAMESPACES['bibo']['isbn']
+            ],
+            'isbn10':[
+                NAMESPACES['bibo']['sbn10']
+            ],
+            'isbn13':[
+                NAMESPACES['bibo']['isbn13']
+            ],
+            'issn':[
+                NAMESPACES['bibo']['issn']
+            ],
+            'lccn':[
+                NAMESPACES['bibo']['lccn']
+            ],
+            'oclcnum':[
+                NAMESPACES['bibo']['oclcnum']
+            ],
+            'pmid':[
+                NAMESPACES['bibo']['pmid']
+            ],
+            'sici':[
+                NAMESPACES['bibo']['sici']
+            ],
+            'upc':[
+                NAMESPACES['bibo']['upc']
+            ],
+            'size':[
+                NAMESPACES['dcterms']['extent']
+            ],
+            'format':[
+                NAMESPACES['dc']['format'],
+                NAMESPACES['dcterms']['format']
+            ],
+            'version':[
+                NAMESPACES['oxds']['currentVersion']
+            ],
+            'rights':[
+                NAMESPACES['dc']['rights'],
+                NAMESPACES['dcterms']['rights']
+            ],
+            'description':[
+                NAMESPACES['dc']['description'],
+                NAMESPACES['dcterms']['description']
+            ],
+            'abstract':[
+                NAMESPACES['dcterms']['abstract']
+            ]
+            #'RelatedIdentifier':[]],
+            #'contributor':[
+            #    NAMESPACES['dc']['contributor'],
+            #    NAMESPACES['dcterms']['contributor']
+            #],
+            #'resourceType':[
+            #    NAMESPACES['dc']['type',
+            #    NAMESPACES['dcterms']['type']
+            #],
         }
 
-        self.parent_tags={
-            'creator':'creators',
-            'title':'titles',
-            'subject':'subjects',
-            'date':'dates',
-            'alternateIdentifier':'alternateIdentifiers',
-            'size':'sizes',
-            'format':'formats',
-            'description':'descriptions'
-        }
-
-        self.groups={
-            'date':['accepted', 'available', 'copyrighted', 'created', 'issued', 'submitted', 'updated'],
-            'description':['other', 'abstract']
-        }
+        self.multiValued = ['creator', 'subject', 'size', 'format']
+        self.empty_tags = ['subjects', 'dates', 'alternateIdentifiers', 'sizes', 'formats', 'descriptions']       
+ 
+        self.xml_schema=u"""<resource xmlns="http://datacite.org/schema/kernel-2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-2.2 http://schema.datacite.org/meta/kernel-2.2/metadata.xsd">
+<identifier identifierType="DOI">%s</identifier>
+<creators>
+<creator><creatorName>${creator}</creatorName></creator>
+</creators>
+<titles>
+<title>${title}</title>
+</titles>
+<publisher>${publisher}</publisher>
+<publicationYear>${publicationYear}</publicationYear>
+<subjects>
+<subject>${subject}</subject>
+</subjects>
+<dates>
+<date dateType="Accepted">${dateAccepted}</date>
+<date dateType="Available">${embargoedUntil}</date>
+<date dateType="Copyrighted">${dateCopyrighted}</date>
+<date dateType="Created">${created}</date>
+<date dateType="Issued">${issued}</date>
+<date dateType="Submitted">${dateSubmitted}</date>
+<date dateType="Updated">${modified}</date>
+<date dateType="Valid">${date}</date>
+</dates>
+<language>${language}</language>
+<resourceType resourceTypeGeneral="Dataset">Dataset</resourceType>
+<alternateIdentifiers>
+<alternateIdentifier alternateIdentifierType="Source identifier">${identifier}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="uri">${uri}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="asin">${asin}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="coden">${coden}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="eanucc13">${eanucc13}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="eISSN">${eissn}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="gtin14">${gtin14}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="handle">${handle}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="isbn">${isbn}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="isbn">${isbn10}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="isbn">${isbn13}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="issn">${issn}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="lccn">${lccn}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="oclcnum">${oclcnum}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="pmid">${pmid}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="sici">${sici}</alternateIdentifier>
+<alternateIdentifier alternateIdentifierType="upc">${upc}</alternateIdentifier>
+</alternateIdentifiers>
+<sizes>
+<size>${size}</size>
+</sizes>
+<formats>
+<format>${format}</format>
+</formats>
+<version>${version}</version>
+<rights>${rights}</rights>
+<descriptions>
+<description descriptionType="Other">${description}</description>
+<description descriptionType="Abstract">${abstract}</description>
+</descriptions>
+</resource>
+"""%doi

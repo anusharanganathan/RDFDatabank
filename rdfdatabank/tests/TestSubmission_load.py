@@ -215,6 +215,7 @@ class TestSubmission(SparqlQueryTestCase.SparqlQueryTestCase):
             # Create a new dataset, check response
             start = datetime.now()
             dataset_id= uuid4().hex
+            #dataset_id='TestSubmission%d'%i
             f = open('test_times.log', 'a')
             f.write('%s: Creating and uploading file to dataset %s \n'%(start.isoformat(), dataset_id))
             f.close()

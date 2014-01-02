@@ -62,12 +62,39 @@ def formatQName(qname):
     % endfor
     </td></tr>  
   % endif
+  <!-- DOI -->
+  % if 'bibo:doi' in c.metadata:
+    <tr><th>DOI</th><td>
+    % for v in c.metadata['bibo:doi']:
+      % if isinstance(v, URIRef):
+        <a href="${v}">${v}</a><br/>
+      % elif v.startswith('10'):
+        <a href="http://dx.doi.org/${v}">${v}</a><br/>
+      % else:
+        ${v}<br/>
+      % endif
+    % endfor
+    </td></tr>  
+  % endif
   <!-- All other properties -->
   % for k, vals in c.metadata.iteritems():
-    % if not k in ['dc:title', 'dcterms:title', 'oxds:isEmbargoed', 'oxds:embargoedUntil', 'ore:aggregates']:
+    % if not k in ['dc:title', 'dcterms:title', 'oxds:isEmbargoed', 'oxds:embargoedUntil', 'ore:aggregates', 'bibo:doi']:
       <tr><th>${formatQName(k)}</th><td>
       % for v in vals:
-        % if isinstance(v, URIRef):
+        % if k in ['dcterms:license', 'dc:license']:
+          % if v == "CC0 1.0 Universal (CC0 1.0). See http://creativecommons.org/publicdomain/zero/1.0/legalcode":
+            <a href="http://creativecommons.org/publicdomain/zero/1.0/legalcode" target="_blank">CC0 1.0 Universal (CC0 1.0)</a><br/>
+          % elif v == "Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. See http://creativecommons.org/licenses/by-nc-sa/3.0/":
+            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br/>
+          % else:
+            ${v}<br/>
+          % endif
+        % elif isinstance(v, URIRef) or v.startswith('http'):
+          % if 'ouls' in v:
+          <%
+            v = v.replace('ora.ouls.ox.ac.uk', 'ora.ox.ac.uk')
+          %>
+          % endif
           <a href="${v}">${v}</a><br/>
         % else:
           ${v}<br/>
@@ -81,10 +108,10 @@ def formatQName(qname):
     <tr class="aggregates"><th>Aggregates</th><td><div>
     <ul>
     % for v in c.metadata['ore:aggregates']:
-      % if isinstance(v, URIRef):
+      % if isinstance(v, URIRef) or v.startswith('http'):
         <li><a href="${v}">${v}</a></li>
       % else:
-        <li>${v} type(v)</li>
+        <li>${v}</li>
       % endif
     % endfor
     </ul>

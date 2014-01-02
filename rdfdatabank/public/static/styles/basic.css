@@ -181,7 +181,7 @@ header.pageHeader a
 header.pageHeader h1
 {
 	background-color: transparent;
-	font-size: 5.5555em;;
+	font-size: 5.5555em;
 	font-weight: bold;
 	letter-spacing: -0.16em;
 	/*
@@ -383,9 +383,6 @@ border-color: #6c6;
 .error {
 background-color: #a22;
 border-color: #c66;
-color: white;
-font-weight: bold;
-padding: 5px;
 }
 
 /* are you sure? (blue is cool on the subject..) */
@@ -424,7 +421,7 @@ display: inline;
 
 ul.breadcrumb  li a
 {
-background: transparent url('/static/styles/images/icons/breadcrumb-arrow.png') no-repeat center right; 
+background: transparent url('images/icons/breadcrumb-arrow.png') no-repeat center right; 
 padding-right: 12px;
 }
 
@@ -989,7 +986,7 @@ text-decoration: underline;
         text-decoration: none;
         color: #fff;
         font-weight: normal;
-        background: url('/static/styles/images/fplus.png') no-repeat 0% 60%;
+        background: url('images/fplus.png') no-repeat 0% 60%;
         padding-left: 18px;
 }
 
@@ -1218,6 +1215,23 @@ span#itemsppt a.active:hover, span#itemsppb a.active:hover {
     background: #FFFF99;
 }
 
+table.searchresult th,
+table.searchresult td
+{
+background: none;
+border: none;
+border-bottom: 1px solid #eee;
+margin: 3px;
+padding: 4px;
+text-align: left;
+word-wrap: break-word;
+}
+
+table.searchresult th {
+color: #666666;
+font-weight: normal;
+}
+
 
 ul.versions li{
 display: inline;
@@ -1230,7 +1244,7 @@ list-style: none;
    padding-bottom: 5px;
    padding-left: 15px;
    line-height: 150%;
-   /* background-image: url('/static/styles/images/blksquare.gif');
+   /* background-image: url('images/blksquare.gif');
    background-repeat: no-repeat;
    background-position: 0 .2em; */
 }
@@ -1239,7 +1253,7 @@ list-style: none;
    padding-bottom: 5px;
    padding-left: 30px;
    line-height: 150%;
-   /* background-image: url('/static/styles/images/blkdiamond.gif');
+   /* background-image: url('images/blkdiamond.gif');
    background-repeat: no-repeat;
    background-position: 0.8em 0.4em;
    background-size: 12px; */
@@ -1255,19 +1269,20 @@ list-style: none;
 /*List of Datsets */
 .dataset_list {
     margin: 0px 0px 20px 0px;
-    clear: left;}
+    clear: left;
+}
 
 .dataset_list tr {
    margin: 0px 10px 10px 10px;
 }
 
 .dataset_list td {
-   padding: 0px 0px 10px 10px;
+   padding: 0px 10px 10px 10px;
 }
 
 .dataset_list li {
    list-style-type: square;
-   list-style-image: url('/static/styles/images/blksquare.gif');
+   list-style-image: url('images/blksquare.gif');
    list-style-position: outside;
 }
 
@@ -1285,7 +1300,7 @@ list-style: none;
 
 .silo_list li {
    list-style-type: square;
-   list-style-image: url('/static/styles/images/blksquare.gif');
+   list-style-image: url('images/blksquare.gif');
    list-style-position: outside;
    padding-top: 10px;
 }
@@ -1389,7 +1404,7 @@ font-size: 1.3em;
     margin-left: 20px;
     margin-bottom: 10px;
     max-width: 100%;
-    background-image: url('/static/styles/images/help-icon-16.png');
+    background-image: url('images/help-icon-16.png');
     background-repeat: no-repeat;
     background-position: 0 0;
     padding-left: 20px;
@@ -1400,16 +1415,38 @@ font-size: 1.3em;
     margin-left: 20px;
     margin-bottom: 10px;
     max-width: 100%;
-    background-image: url('/static/styles/images/info-icon-16.png');
+    background-image: url('images/info-icon-16.png');
     background-repeat: no-repeat;
     background-position: 0 0;
     padding-left: 20px;
     min-height: 20px;
 }
 
+table.metadata th,
+table.metadata td
+{
+background: none;
+border: none;
+border-bottom: 1px solid #eee;
+margin: 3px;
+padding: 4px;
+padding-bottom: 15px;
+text-align: left;
+word-wrap: break-word;
+}
+
+table.metadata th {
+color: #666666;
+font-weight:normal;
+}
+
 .metadata td div {
     /*max-height: 150px;
     overflow: auto;*/
+}
+
+.metadata td div ul {
+    padding-left: 0px;
 }
 
 div.metadata {
@@ -1496,8 +1533,6 @@ clear: both;
 color: black;
 margin: 0px 0px;
 padding: 5px;
-
-
 }
 
 div.newPackage h2{

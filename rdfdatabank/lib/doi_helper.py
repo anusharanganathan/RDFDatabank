@@ -23,97 +23,134 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 from rdfdatabank.lib.doi_schema import DataciteDoiSchema
+from rdfdatabank.config.namespaces import NAMESPACES
+from rdflib import URIRef, Literal, BNode
 from pylons import app_globals as ag
-import os, codecs, uuid
+from dateutil.parser import parse
+from time import strftime
+import os, codecs, uuid, re
+
+def get_values(key, predicates, item):
+    values = []
+    answers = []
+    # Get answers from all the predicates
+    for p in predicates:
+        ans = item.list_rdf_objects(item.uri, p)
+        if ans:
+            answers.extend(ans)
+    if not answers:
+        if key == "creator":
+            return ["First World War Poetry Digital Archive, University of Oxford"]
+        return values
+    # Clean up the answers
+    if key == 'publicationYear':
+        for ans in answers:
+            if type(ans).__name__ in ['str', 'unicdoe', 'Literal']:
+                try:
+                    dt_obj = parse(str(ans), dayfirst=True, yearfirst=False)
+                    values.append(dt_obj.year)
+                except:
+                    continue
+            else: 
+                continue
+    elif 'date' in key:
+        for ans in answers:
+            if type(ans).__name__ in ['str', 'unicdoe', 'Literal']:
+                try:
+                    dt_obj = parse(ans, dayfirst=True, yearfirst=False)
+                    dt_formatted = dt_obj.strftime("%Y-%m-%d")
+                    values.append(dt_formatted)
+                except:
+                    continue
+            else:
+                continue
+    elif key in ['creator', 'contributor', 'publisher']:
+        for ans in answers:
+            if type(ans).__name__ in ['str', 'unicdoe', 'Literal']:
+                ans = ans.strip()
+                if ans:
+                    values.append(ans)
+            elif type(ans).__name__ == 'BNode':
+                fn = item.list_rdf_objects(ans, NAMESPACES['foaf']['familyName'])
+                ln = item.list_rdf_objects(ans, NAMESPACES['foaf']['givenName'])
+                nm = item.list_rdf_objects(ans, NAMESPACES['foaf']['name'])
+                if fn and fn[0] and ln and ln[0] and type(fn[0]).__name__ in ['str', 'unicdoe', 'Literal'] and \
+                    type(ln[0]).__name__ in ['str', 'unicdoe', 'Literal']:
+                    values.append(u"%s,%s"%(ln[0],fn[0]))
+                elif nm and nm[0] and type(nm[0]).__name__ in ['str', 'unicdoe', 'Literal']:
+                    values.append(nm[0])
+        if key == "creator" and not values:
+            values.append("First World War Poetry Digital Archive, University of Oxford")
+    elif key in ['identifier']:
+        for ans in answers:
+            if type(ans).__name__ in ['str', 'unicdoe', 'Literal']:
+                ans = ans.strip()
+                if ans:
+                    values.append(ans)
+    elif key in ['uri']:
+        for ans in answers:
+            if type(ans).__name__ == 'URIRef' or ans.startswith('http'):
+                values.append(ans)
+    else:
+        for ans in answers:
+            if type(ans).__name__ in ['str', 'unicdoe', 'Literal']:
+                ans = ans.strip()
+            values.append(ans)
+    return values
 
 def get_doi_metadata(doi, item):
-    schema = DataciteDoiSchema()
-    xml_metadata = {}
-    xml_metadata['identifier']= schema.xml_schema['identifier']%doi
+    schema = DataciteDoiSchema(doi)
+    xml_metadata = []
+    values = {}
+    #Get values for mandatory fields
     for key, predicates in schema.mandatory_metadata.iteritems():
-        answers = None
-        for p in predicates:
-            answers = item.list_rdf_objects(item.uri, p)
-            if answers:
-                break
+        answers = get_values(key, predicates, item)
         if not answers:
             return False
-        if key == 'publicationYear':
-            xml_metadata[key] = schema.xml_schema[key]%answers[0].split('-')[0]
-        elif key not in schema.parent_tags:
-            xml_metadata[key] = schema.xml_schema[key]%answers[0]
-        else:
-            xml_subset = []
-            for ans in answers:
-                if key == 'creator':
-                    if len(ans.split(',')) == 2:
-                        xml_subset.append("    "+schema.xml_schema[key]%ans)
-                else:
-                    xml_subset.append("    "+schema.xml_schema[key]%ans)
-            if not xml_subset:
-                return False
-            xml_subset.insert(0, "<%s>"%schema.parent_tags[key])
-            xml_subset.append("</%s>"%schema.parent_tags[key])
-            xml_subset = "\n    ".join(xml_subset)
-            xml_metadata[key] = xml_subset
-
-    for grp, keys in schema.groups.iteritems():
-        xml_subset = {}
-        for k in keys:
-            predicates = schema.optional_metadata['%s:%s'%(grp, k)]
-            answers = None
-            for p in predicates:
-                answers = item.list_rdf_objects(item.uri, p)
-                if answers:
-                    break
-            if not answers or not answers[0]:
-                continue
-            if grp =='date':
-                xml_subset[k] = "    "+schema.xml_schema[k]%answers[0].split('T')[0]
-            else:
-                xml_subset[k] = "    "+schema.xml_schema[k]%answers[0]
-        if xml_subset:
-            xml_subset_str = ["<%s>"%schema.parent_tags[grp]]
-            for o in schema.schema_order[grp]:
-                if o in xml_subset.keys():
-                    xml_subset_str.append(xml_subset[o])
-            xml_subset_str.append("</%s>"%schema.parent_tags[grp])
-            xml_subset_str = "\n    ".join(xml_subset_str)
-            xml_metadata[grp] = xml_subset_str
-    
+        values[key] = answers
+    #Get values for optional fields
     for key, predicates in schema.optional_metadata.iteritems():
-        if ':' in key and key.split(':')[0] in schema.groups.keys():
-            continue
-        answers = None
-        for p in predicates:
-            answers = item.list_rdf_objects(item.uri, p)
-            if answers:
-                break
-        if not answers:
-            continue
-        if key not in schema.parent_tags:
-            xml_metadata[key] = schema.xml_schema[key]%answers[0]
+        answers = get_values(key, predicates, item)
+        if answers:
+            values[key] = answers
+    p = "[$][{](.*?)[}]"
+    #construct the xml document based on the template xml_schema
+    lines = schema.xml_schema.split('\n')
+    for line in lines:
+        terms = re.findall(p, line)
+        if terms:
+            if terms[0] in values:
+                if not type(values[terms[0]]).__name__ == 'list':
+                    values[terms[0]] = [values[terms[0]]]
+                if terms[0] in schema.multiValued:
+                    for val in values[terms[0]]:
+                        if type(val) == str:
+                            val = unicode(val).encode('utf-8')
+                        elif not isinstance(val, basestring):
+                            val = unicode(val)
+                        xml_metadata.append(line.replace("${%s}"%terms[0], val))
+                else:
+                    val = values[terms[0]][0]
+                    if type(val) == str:
+                        val = unicode(val).encode('utf-8')
+                    elif not isinstance(val, basestring):
+                        val = unicode(val)
+                    xml_metadata.append(line.replace("${%s}"%terms[0], val))
         else:
-            xml_subset = []
-            for ans in answers:
-                xml_subset.append("    "+schema.xml_schema[key]%ans)
-            if xml_subset:
-                xml_subset.insert(0, "<%s>"%schema.parent_tags[key])
-                xml_subset.append("</%s>"%schema.parent_tags[key])
-                xml_subset = "\n    ".join(xml_subset)
-                xml_metadata[key] = xml_subset
-    if not xml_metadata:
-        return False
-    fn = "/tmp/%s"%uuid.uuid4()
-    f = open(fn, 'w')
-    f.write("%s\n"%schema.xml_schema['header'])
-    for o in schema.schema_order['all']:
-        if o in xml_metadata: 
-            f.write("   %s\n "%xml_metadata[o])
-    f.write("%s\n"%schema.xml_schema['footer'])
-    f.close()
-    unicode_metadata = codecs.open(fn, 'r', encoding='utf-8').read()
-    return unicode_metadata
+            xml_metadata.append(line)
+    #Remove empty tags from the xml document
+    for tag in schema.empty_tags:
+        try:
+            start = xml_metadata.index('<%s>'%tag)
+            end = xml_metadata.index('</%s>'%tag)
+            if start + 1 == end:
+                xml_metadata.remove('<%s>'%tag)
+                xml_metadata.remove('</%s>'%tag)
+        except ValueError:
+            continue
+    #Convert to string
+    xml_metadata = u"\n".join(xml_metadata)
+    return xml_metadata
 
 def doi_count(increase=True):
     if not os.path.isfile(ag.doi_count_file):

@@ -56,10 +56,10 @@ class NoSuchSilo(Exception):
 
 def gather_document(silo_name, item_id, graph, item, debug=False):
     document = defaultdict(list)
-    if 'metadata' in item and item['metadata'] and 'uuid' in item['metadata'] and item['metadata']['uuid']:
-        document['uuid'].append(item['metadata']['uuid'])
-    else:
-        document['uuid'].append(item_id)
+    if 'metadata' in item['state'] and item['state']['metadata'] and 'uuid' in item['state']['metadata'] and item['state']['metadata']['uuid']:
+        document['uuid'].append(item['state']['metadata']['uuid'])
+    #else:
+    #    document['uuid'].append(item_id)
     document['id'].append(item_id)
     document['silo'].append(silo_name)
     for (_,p,o) in graph.triples((None, None, None)):

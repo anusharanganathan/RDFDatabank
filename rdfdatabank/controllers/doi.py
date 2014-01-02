@@ -100,10 +100,10 @@ class DoiController(BaseController):
             silos_admin = ag.authz(ident, permission='administrator')
             silos_manager = ag.authz(ident, permission='manager')
             #if ident['repoze.who.userid'] == creator or ident.get('role') in ["admin", "manager"]:
-            if ident['repoze.who.userid'] == creator or silo in silos_admin or silo in silos_manager:
+            if ident and ident['repoze.who.userid'] == creator or silo in silos_admin or silo in silos_manager:
                 c.editor = True
 
-        version_uri = "%s/version%s"%(item.uri.rstrip('/'), c.version)
+        version_uri = "%s?version=%s"%(item.uri.rstrip('/'), c.version)
         c.version_doi = item.list_rdf_objects(URIRef(version_uri), u"http://purl.org/ontology/bibo/doi")
         if not c.version_doi or not c.version_doi[0]:
             c.version_doi = None
@@ -219,15 +219,19 @@ class DoiController(BaseController):
                 tiny_pid = short_pid.encode_url(cnt) 
                 c.version_doi = "%s/bodleian%s.%s"%(doi_conf.prefix, tiny_pid, c.version)
             #1b. Construct XML metadata
-            xml_metadata = get_doi_metadata(c.version_doi, item)
-            c.metadata = xml_metadata
+            if c.version_doi:
+                xml_metadata = get_doi_metadata(c.version_doi, item)
+                c.metadata = xml_metadata
             #FOR TEST PURPOSES ONLY
             #xml_metadata = False
+            # Have commented out the sections below as we will only register a DOI if there is metadata
+            """
             if not xml_metadata and not register_doi:
                 #2a. If the doi already exists and there is no xml metadata to update, return bad request
-                c.message = "Coud not update matadata"
+                c.message = "Coud not update metadata"
                 response.status_int = 400
                 response.status = "Bad request"
+                respdata = c.message
                 c.metadata = ''
             elif not xml_metadata and register_doi:
                 #2b. If the doi is not registered, but there is no xml metadata to update, register just the doi with datacite
@@ -266,8 +270,24 @@ class DoiController(BaseController):
                     response_msg = "DOI Registered. %s"%respdata
                     c.metadata = ''
                     c.message = "201 Created - DOI registered. %s"%respdata
+            """
+            if not xml_metadata:
+                #2a. If the doi already exists and there is no xml metadata to update, return bad request
+                c.message = "Could not generate metadata"
+                c.metadata = ''
+                abort(400, "Error generating metadata")
+            elif not register_doi:
+                c.message = "Could not generate DOI"
+                abort(400, "Error generating DOI")
             else:
-                #register the DOI and metadata with Datacite
+                #register the DOI with Datacite
+                resource = "%s"%doi_conf.endpoint_path_doi
+                body = "doi=%s\nurl=%s"%(c.version_doi, version_uri)
+                body_unicode = unicode(body)
+                (resp, respdata) = doi_api.doHTTP_POST(body_unicode, resource=resource, data_type='text/plain;charset=UTF-8')
+                c.resp_reason1 = resp.reason
+                c.resp_status1 = resp.status
+                #Add the metadata within Datacite
                 c.heading = "Registering new DOI along with its metadata with Datacite"
                 #body_unicode = unicode(xml_metadata, "utf-8")
                 #body_unicode = unicode(xml_metadata)
@@ -276,6 +296,20 @@ class DoiController(BaseController):
                 (resp, respdata) = doi_api.doHTTP_POST(body_unicode, resource=resource, data_type='application/xml;charset=UTF-8')
                 c.resp_reason = resp.reason
                 c.resp_status = resp.status
+
+                if (c.resp_status1>= 200 and c.resp_status1 < 300) or (resp.status >= 200 and resp.status < 300):
+                    #3. Add the DOI to the rdf metadata
+                    item.add_namespace('bibo', "http://purl.org/ontology/bibo/")
+                    item.add_triple(URIRef(version_uri), u"bibo:doi", Literal(c.version_doi))
+                    item.del_triple(item.uri, u"dcterms:modified")
+                    item.add_triple(item.uri, u"dcterms:modified", datetime.now())
+                    item.sync()
+                    #4. Broadcast changes to redis
+                    try:
+                        ag.b.change(silo, id, ident=ident['repoze.who.userid'])
+                    except:
+                        pass
+
                 if resp.status < 200 or resp.status >= 300:
                     response.status_int = 400
                     response.status = "400 Bad Request"
@@ -292,12 +326,6 @@ class DoiController(BaseController):
                         msg = "Error retreiving the metadata from Datacite. %s"%str(resp.status)
                     c.message = msg
                 else:
-                    #3. Add the DOI to the rdf metadata
-                    item.add_namespace('bibo', "http://purl.org/ontology/bibo/")
-                    item.add_triple(URIRef(version_uri), u"bibo:doi", Literal(c.version_doi))
-                    item.del_triple(item.uri, u"dcterms:modified")
-                    item.add_triple(item.uri, u"dcterms:modified", datetime.now())
-                    item.sync()
                     response.status_int = 200
                     response.status = "200 OK"
                     response_msg = body_unicode
@@ -312,7 +340,7 @@ class DoiController(BaseController):
                     response.status = "200 OK"
                     return render('/doiview.html')
                 elif str(mimetype).lower() in ["text/plain", "application/json"]:
-                    response.content_type = 'text/plain; charset="UTF-8"'
+                    response.content_type = 'text/plain'
                     return str(respdata.decode('utf-8'))
                 elif str(mimetype).lower() in ["application/rdf+xml", "text/xml"]:
                     response.status_int = 200

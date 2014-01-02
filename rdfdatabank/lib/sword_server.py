@@ -809,6 +809,7 @@ class URLManager(object):
             silo, dataset_id = path.split("/", 1)
         else:
             silo = path
+            dataset_id = ""
             
         return silo, dataset_id, accept_parameters
         
