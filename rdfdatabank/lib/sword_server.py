@@ -3,6 +3,7 @@ from rdfdatabank.lib.auth_entry import list_silos, add_dataset
 from rdfdatabank.lib.file_unpack import check_file_mimetype, BadZipfile, unpack_zip_item
 from sss import SwordServer, Authenticator, Auth, ServiceDocument, SDCollection, DepositResponse, SwordError, EntryDocument, Statement, Namespaces, AuthException
 from sss.negotiator import AcceptParameters, ContentType
+from sss.spec import Errors
 
 from pylons import app_globals as ag
 
